@@ -1,0 +1,45 @@
+#root {
+	max-width: 1280px;
+	margin: 0;
+}
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+:root {
+	--accent: hsl(26, 100%, 55%);
+	--accent-light: hsl(25, 100%, 94%);
+	--grayish-blue-900: hsl(220, 13%, 13%);
+	--grayish-blue-400: hsl(219, 9%, 45%);
+	--grayish-blue-200: hsl(220, 14%, 75%);
+	--grayish-blue-100: hsl(223, 64%, 98%);
+	--white: hsl(0, 0%, 100%);
+	--black: hsl(0, 0%, 0%);
+	--black-transparent-bg: hsl(0, 0%, 0%, 0.75);
+
+	--cart-padding: 24px;
+}
+
+body {
+	font-family: "Kumbh Sans", sans-serif;
+	color: var(--grayish-blue-900);
+	max-width: 1130px;
+	margin-inline: auto;
+}
+
+.flex {
+	display: flex;
+}
+
+@media screen and (width > 900px) {
+	body {
+		padding-inline: 10px;
+	}
+}
