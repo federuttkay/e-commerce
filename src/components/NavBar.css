@@ -97,6 +97,7 @@
 		margin-top: 1.5rem;
 		padding-bottom: 2rem;
 		border-bottom: 1px solid var(--grayish-blue-200);
+		padding-inline: 0;
 	}
 	.nav__toggle {
 		display: none;
