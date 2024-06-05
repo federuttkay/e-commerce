@@ -5,17 +5,36 @@ import avatar from "../assets/images/image-avatar.png";
 import menuOpen from "../assets/images/icon-menu.svg";
 import menuClose from "../assets/images/icon-close.svg";
 import Cart from "./Cart";
-import { Item } from "../App";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useCartContext } from "../context/context";
 
-interface Props {
-	cartItems: Item[];
-}
-
-const NavBar = ({ cartItems }: Props) => {
+const NavBar = () => {
 	const menuItems = ["Collections", "Men", "Women", "About", "Contact"];
 	const [isCartVisible, setIsCartVisible] = useState(false);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const { cartItems } = useCartContext();
+
+	const cartRef = useRef<HTMLDivElement>(null);
+	const cartButtonRef = useRef<HTMLButtonElement>(null);
+
+	useEffect(() => {
+		const closeCart = (event: MouseEvent) => {
+			if (
+				cartRef.current &&
+				cartButtonRef.current &&
+				event.target instanceof Node &&
+				!cartRef.current.contains(event.target) &&
+				!cartButtonRef.current.contains(event.target)
+			)
+				setIsCartVisible(false);
+		};
+
+		document.addEventListener("mousedown", closeCart);
+
+		return () => {
+			document.removeEventListener("mousedown", closeCart);
+		};
+	});
 
 	return (
 		<nav className="nav flex">
@@ -34,15 +53,19 @@ const NavBar = ({ cartItems }: Props) => {
 				</a>
 			</div>
 			<ul className={"nav__menu-items flex" + (isMenuOpen ? " is-open" : "")}>
-				{menuItems.map((item) => (
-					<li className="nav__menu-item">
+				{menuItems.map((item, index) => (
+					<li className="nav__menu-item" key={index}>
 						<a href="#">{item}</a>
 					</li>
 				))}
 			</ul>
 			<div className="nav__cart-and-user flex">
 				<div className="nav__cart-group">
-					<button onClick={() => setIsCartVisible(!isCartVisible)}>
+					<button
+						onClick={() => setIsCartVisible(!isCartVisible)}
+						className="nav__cart-and-user__button"
+						ref={cartButtonRef}
+					>
 						<img className="cart-icon" src={iconCart} alt="shopping cart" />
 						{cartItems.length !== 0 && (
 							<span className="cart-number">
@@ -50,12 +73,15 @@ const NavBar = ({ cartItems }: Props) => {
 							</span>
 						)}
 					</button>
-					{isCartVisible && <Cart cartItems={cartItems} />}
+					{isCartVisible && window.innerWidth > 900 && (
+						<Cart cartRef={cartRef} />
+					)}
 				</div>
-				<button>
+				<button className="nav__cart-and-user__button">
 					<img className="profile-picture" src={avatar} alt="my profile" />
 				</button>
 			</div>
+			{isCartVisible && window.innerWidth <= 900 && <Cart cartRef={cartRef} />}
 		</nav>
 	);
 };

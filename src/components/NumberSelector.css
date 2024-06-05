@@ -1,0 +1,24 @@
+.number-selector {
+	background-color: var(--grayish-blue-100);
+	border-radius: 0.75rem;
+	font-weight: 700;
+	display: grid;
+	grid-template-columns: min-content 1fr min-content;
+}
+
+.number-selector__minus-btn,
+.number-selector__plus-btn {
+	padding: 1.5rem;
+	color: var(--accent);
+	font-size: 1.5rem;
+	width: max-content;
+}
+
+.number-selector__number {
+	display: grid;
+	place-items: center;
+}
+
+button img {
+	width: auto;
+}

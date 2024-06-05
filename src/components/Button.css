@@ -1,0 +1,17 @@
+.btn {
+	background-color: var(--accent);
+	color: var(--accent-light);
+	font-size: 1rem;
+	font-weight: 500;
+	width: 100%;
+	padding-block: 20px;
+	border-radius: 0.75rem;
+	display: flex;
+	gap: 1rem;
+	cursor: pointer;
+	justify-content: center;
+}
+
+.btn__cart-icon {
+	transform: scale(0.8);
+}
